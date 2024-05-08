@@ -20,11 +20,23 @@ public class Enemy : MonoBehaviour
         // 오른쪽에서 왼쪽으로 이동
         transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
 
-        // sky 태그를 기준으로 생성되고 사라지도록
-        if (transform.position.x < GameObject.FindGameObjectWithTag("Sky").transform.position.x)
+
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Area"))
+        {
+            return;
+        }
+        Vector3 playerPos = GameManager.instance.player.transform.position;
+        Vector3 myPos = transform.position;
+        float diffx = playerPos.x - myPos.x;
+        if (diffx > 0)
         {
             Destroy(gameObject);
+
         }
+
     }
 
     void Fire()

@@ -13,10 +13,6 @@ public class Reposition : MonoBehaviour
         Vector3 playerPos = GameManager.instance.player.transform.position;
         Vector3 myPos = transform.position;
         float diffx = Mathf.Abs(playerPos.x - myPos.x);
-        // float diffy = Mathf.Abs(playerPos.y - myPos.y);
-        Debug.Log(playerPos);
-        Debug.Log(myPos);
-        Debug.Log(diffx);
 
         Player playerScript = GameManager.instance.player.GetComponent<Player>();
         Vector2 playerDir = playerScript.moveInput;
@@ -37,8 +33,12 @@ public class Reposition : MonoBehaviour
                     transform.Translate(Vector3.right * dirx * 64);
                 }
                 break;
-            case "Enemy": break;
+                // case "Enemy":
+                //     transform.Translate(Vector3.right * 64);
+                //     break;
 
         }
+
     }
+
 }
