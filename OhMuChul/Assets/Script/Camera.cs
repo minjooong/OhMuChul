@@ -18,6 +18,9 @@ public class CameraFollow : MonoBehaviour
         // y축 값 고정
         desiredPosition.y = transform.position.y;
 
+        // 카메라가 왼쪽으로 이동하지 않도록 함
+        desiredPosition.x = Mathf.Max(transform.position.x, desiredPosition.x);
+
         // 카메라의 위치를 부드럽게 조정
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
