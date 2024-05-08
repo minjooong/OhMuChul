@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         // 점프
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded && Input.GetKeyDown(KeyCode.UpArrow))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
