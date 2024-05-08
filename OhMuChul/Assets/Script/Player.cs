@@ -15,25 +15,23 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+    void Update()
+    {
+        // 점프
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+        {
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
-    // private void Update()
-    // {
-
-    // }
-
+            if (isGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            }
+        }
+    }
     private void FixedUpdate()
     {
         // 키보드 입력을 통해 플레이어를 움직임
         moveInput.x = Input.GetAxisRaw("Horizontal"); // x값만 설정
-
-        // 바닥 체크
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-
-        // 점프
-        if (isGrounded && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
         // FixedUpdate에서 rigidbody에 속도를 적용
         rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
 

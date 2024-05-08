@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
 
     public float minStillSpawnDelay = 2f; // 가만히 있을 때 최소 스폰 딜레이
     public float maxStillSpawnDelay = 3f; // 가만히 있을 때 최대 스폰 딜레이
-    public float minMovingSpawnDelay = 0.3f; // 움직일 때 최소 스폰 딜레이
-    public float maxMovingSpawnDelay = 2f; // 움직일 때 최대 스폰 딜레이
+    public float minMovingSpawnDelay = 0.1f; // 움직일 때 최소 스폰 딜레이
+    public float maxMovingSpawnDelay = 1.5f; // 움직일 때 최대 스폰 딜레이
 
     private Rigidbody2D playerRigidbody;
 
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
             float spawnDelay;
 
             // 플레이어가 가만히 있는지 아닌지에 따라 스폰 딜레이를 결정합니다.
-            if (playerRigidbody.velocity.magnitude < 0.1f) // 플레이어가 가만히 있는 경우
+            if (playerRigidbody.velocity.x < 0.1f)
             {
                 spawnDelay = Random.Range(minStillSpawnDelay, maxStillSpawnDelay);
             }

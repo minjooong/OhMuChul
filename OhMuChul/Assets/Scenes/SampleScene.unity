@@ -4433,8 +4433,8 @@ MonoBehaviour:
   enemy: {fileID: 314809222708931665, guid: 12caaace9cedd41c9a75f1b1152e6c01, type: 3}
   minStillSpawnDelay: 2
   maxStillSpawnDelay: 3
-  minMovingSpawnDelay: 0.3
-  maxMovingSpawnDelay: 2
+  minMovingSpawnDelay: 0.1
+  maxMovingSpawnDelay: 1.5
 --- !u!4 &1499194237
 Transform:
   m_ObjectHideFlags: 0
