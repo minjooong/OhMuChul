@@ -16,4 +16,11 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Update()
+    {
+        if (gameObject.transform.position.y < -5)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

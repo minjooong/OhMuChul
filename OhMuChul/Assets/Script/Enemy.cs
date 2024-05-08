@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
         float diffx = playerPos.x - myPos.x;
         if (diffx > 0)
         {
-            Destroy(gameObject);
+            Deactivate();
 
         }
 
@@ -56,5 +56,10 @@ public class Enemy : MonoBehaviour
 
         // 총알을 아래 방향으로 발사
         bullet.GetComponent<Rigidbody2D>().velocity = Vector2.down * 10f; // 총알 속도 및 방향 설정
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false); // Enemy 오브젝트를 비활성화합니다.
     }
 }
