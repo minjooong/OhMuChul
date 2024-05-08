@@ -16,7 +16,12 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    // private void Update()
+    // {
+
+    // }
+
+    private void FixedUpdate()
     {
         // 키보드 입력을 통해 플레이어를 움직임
         moveInput.x = Input.GetAxisRaw("Horizontal"); // x값만 설정
@@ -29,11 +34,16 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-    }
-
-    private void FixedUpdate()
-    {
         // FixedUpdate에서 rigidbody에 속도를 적용
         rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+
+        // 카메라 시야 영역
+        float minX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        float maxX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
+
+        // 플레이어의 위치 제한
+        Vector3 clampedPosition = transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
+        transform.position = clampedPosition;
     }
 }

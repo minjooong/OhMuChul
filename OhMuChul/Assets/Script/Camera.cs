@@ -5,12 +5,12 @@ public class CameraFollow : MonoBehaviour
     public Transform target; // 플레이어의 Transform
 
     // 카메라와 플레이어 간의 거리
-    public Vector3 offset = new Vector3(0f, 0f, -10f);
+    public Vector3 offset = new Vector3(4f, 0f, -10f);
 
     // 카메라의 이동 속도
     public float smoothSpeed = 0.125f;
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         // 플레이어의 현재 위치에 offset을 더하여 카메라의 목표 위치 계산
         Vector3 desiredPosition = target.position + offset;
