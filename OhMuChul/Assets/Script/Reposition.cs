@@ -31,6 +31,12 @@ public class Reposition : MonoBehaviour
 
                 }
                 break;
+            case "Sky":
+                if (diffx > 16)
+                {
+                    transform.Translate(Vector3.right * dirx * 64);
+                }
+                break;
             case "Enemy": break;
 
         }

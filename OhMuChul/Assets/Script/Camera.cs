@@ -14,6 +14,7 @@ public class CameraFollow : MonoBehaviour
     {
         // 플레이어의 현재 위치에 offset을 더하여 카메라의 목표 위치 계산
         Vector3 desiredPosition = target.position + offset;
+
         // y축 값 고정
         desiredPosition.y = transform.position.y;
 
