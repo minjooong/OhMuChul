@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     {
         // 데미지만큼 체력을 감소시킴
         currentHealth -= damageAmount;
-        Debug.Log(currentHealth);
+        Debug.Log("health : " + currentHealth);
         if (currentHealth == 4)
         {
             GetComponent<SpriteRenderer>().color = Color.green;

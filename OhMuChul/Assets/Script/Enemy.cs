@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        Debug.Log("out!!");
         // 적의 위치
         Vector3 enemyPosition = transform.position;
         // 플레이어의 위치
