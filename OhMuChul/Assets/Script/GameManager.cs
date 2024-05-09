@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        GameObject areaObject = GameObject.Find("Area"); // Area 오브젝트의 이름을 가정하고 찾습니다.
-        areaTransform = areaObject.transform; // Area 오브젝트의 Transform을 할당합니다.
+        GameObject areaObject = GameObject.Find("EnemyArea"); // EnemyArea 오브젝트의 이름을 가정하고 찾습니다.
+        areaTransform = areaObject.transform; // EnemyArea 오브젝트의 Transform을 할당합니다.
 
         // 플레이어의 Rigidbody 컴포넌트를 가져옵니다.
         playerRigidbody = player.GetComponent<Rigidbody2D>();
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         if (ObjectPool.Instance != null)
         {
             // ObjectPool 인스턴스가 유효한 경우에만 호출
-            Vector3 spawnPosition = new Vector3(areaTransform.position.x + 16, 4f, areaTransform.position.z);
+            Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, 4f, areaTransform.position.z);
             ObjectPool.Instance.ActivateEnemy(spawnPosition);
         }
         else
