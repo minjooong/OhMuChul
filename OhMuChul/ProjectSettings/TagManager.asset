@@ -9,6 +9,7 @@ TagManager:
   - Sky
   - Enemy
   - Bullet
+  - EnemyArea
   layers:
   - Default
   - TransparentFX

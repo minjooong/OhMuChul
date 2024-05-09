@@ -22,17 +22,11 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Area"))
+        if (!other.CompareTag("EnemyArea"))
         {
             return;
         }
-        Vector3 playerPos = GameManager.instance.player.transform.position;
-        Vector3 myPos = transform.position;
-        float diffx = playerPos.x - myPos.x;
-        if (diffx > 0)
-        {
-            Deactivate();
-        }
+        Deactivate();
     }
 
     void Fire()

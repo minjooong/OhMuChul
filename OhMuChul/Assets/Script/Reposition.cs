@@ -21,10 +21,10 @@ public class Reposition : MonoBehaviour
         switch (transform.tag)
         {
             case "Ground":
-                transform.Translate(Vector3.right * dirx * 64);
+                transform.Translate(Vector3.right * dirx * 72);
                 break;
             case "Sky":
-                transform.Translate(Vector3.right * dirx * 64);
+                transform.Translate(Vector3.right * dirx * 72);
                 break;
         }
     }
