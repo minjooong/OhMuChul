@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         {
             float spawnDelay;
 
-            // 플레이어가 가만히 있는지 아닌지에 따라 스폰 딜레이를 결정합니다.
+            // 플레이어가 가만히 있는지 아닌지에 따라 스폰 딜레이를 결정
             if (playerRigidbody.velocity.x < 0.1f)
             {
                 spawnDelay = Random.Range(minStillSpawnDelay, maxStillSpawnDelay);
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         if (ObjectPool.Instance != null)
         {
-            // ObjectPool 인스턴스가 유효한 경우에만 호출합니다.
+            // ObjectPool 인스턴스가 유효한 경우에만 호출
             Vector3 spawnPosition = new Vector3(areaTransform.position.x + 16, 4f, areaTransform.position.z);
             ObjectPool.Instance.ActivateEnemy(spawnPosition);
         }

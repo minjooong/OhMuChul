@@ -19,8 +19,6 @@ public class Enemy : MonoBehaviour
     {
         // 오른쪽에서 왼쪽으로 이동
         transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
-
-
     }
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -34,9 +32,7 @@ public class Enemy : MonoBehaviour
         if (diffx > 0)
         {
             Deactivate();
-
         }
-
     }
 
     void Fire()

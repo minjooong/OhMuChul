@@ -56,10 +56,10 @@ public class ObjectPool : MonoBehaviour
     }
 
     // Enemy를 비활성화하여 풀에 반환하는 메서드
-    public void DeactivateEnemy(Enemy enemy)
-    {
-        enemy.gameObject.SetActive(false);
+    // public void DeactivateEnemy(Enemy enemy)
+    // {
+    //     enemy.gameObject.SetActive(false);
 
-    }
+    // }
 
 }

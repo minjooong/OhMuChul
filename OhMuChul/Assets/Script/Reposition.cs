@@ -10,9 +10,9 @@ public class Reposition : MonoBehaviour
         {
             return;
         }
-        Vector3 playerPos = GameManager.instance.player.transform.position;
-        Vector3 myPos = transform.position;
-        float diffx = Mathf.Abs(playerPos.x - myPos.x);
+        // Vector3 playerPos = GameManager.instance.player.transform.position;
+        // Vector3 myPos = transform.position;
+        // float diffx = Mathf.Abs(playerPos.x - myPos.x);
 
         Player playerScript = GameManager.instance.player.GetComponent<Player>();
         Vector2 playerDir = playerScript.moveInput;
@@ -21,24 +21,11 @@ public class Reposition : MonoBehaviour
         switch (transform.tag)
         {
             case "Ground":
-                if (diffx > 32)
-                {
-                    transform.Translate(Vector3.right * dirx * 64);
-
-                }
+                transform.Translate(Vector3.right * dirx * 64);
                 break;
             case "Sky":
-                if (diffx > 16)
-                {
-                    transform.Translate(Vector3.right * dirx * 64);
-                }
+                transform.Translate(Vector3.right * dirx * 64);
                 break;
-                // case "Enemy":
-                //     transform.Translate(Vector3.right * 64);
-                //     break;
-
         }
-
     }
-
 }
