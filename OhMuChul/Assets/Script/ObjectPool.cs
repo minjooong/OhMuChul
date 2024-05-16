@@ -9,8 +9,13 @@ public class ObjectPool : MonoBehaviour
     public int enemyPoolSize = 10;
     public GameObject bombEnemyPrefab;
     public int bombEnemyPoolSize = 2;
+
+    public GameObject fastEnemyPrefab;
+    public int fastEnemyPoolSize = 2;
+
     private List<Enemy> enemyPool;
     private List<Enemy> bombEnemyPool;
+    private List<Enemy> fastEnemyPool;
 
     private void Awake()
     {
@@ -26,6 +31,7 @@ public class ObjectPool : MonoBehaviour
     {
         enemyPool = new List<Enemy>();
         bombEnemyPool = new List<Enemy>();
+        fastEnemyPool = new List<Enemy>();
 
         for (int i = 0; i < enemyPoolSize; i++)
         {
@@ -40,6 +46,13 @@ public class ObjectPool : MonoBehaviour
             Enemy bombEnemy = bombEnemyObj.GetComponent<Enemy>();
             bombEnemy.Deactivate();
             bombEnemyPool.Add(bombEnemy);
+        }
+        for (int i = 0; i < fastEnemyPoolSize; i++)
+        {
+            GameObject fastEnemyObj = Instantiate(fastEnemyPrefab, transform);
+            Enemy fastEnemy = fastEnemyObj.GetComponent<Enemy>();
+            fastEnemy.Deactivate();
+            fastEnemyPool.Add(fastEnemy);
         }
     }
 
@@ -66,6 +79,16 @@ public class ObjectPool : MonoBehaviour
 
         return null;
     }
+    public Enemy GetFastEnemyFromPool()
+    {
+        foreach (Enemy fastEnemy in fastEnemyPool)
+        {
+            if (!fastEnemy.gameObject.activeInHierarchy)
+                return fastEnemy;
+        }
+
+        return null;
+    }
 
     // Enemy를 활성화하여 풀에서 가져오는 메서드
     public void ActivateEnemy(Vector3 position)
@@ -86,6 +109,15 @@ public class ObjectPool : MonoBehaviour
         {
             bombEnemy.transform.position = position;
             bombEnemy.gameObject.SetActive(true);
+        }
+    }
+    public void ActivateFastEnemy(Vector3 position)
+    {
+        Enemy fastEnemy = GetFastEnemyFromPool();
+        if (fastEnemy != null)
+        {
+            fastEnemy.transform.position = position;
+            fastEnemy.gameObject.SetActive(true);
         }
     }
 }

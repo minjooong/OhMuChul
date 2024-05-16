@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
         // 랜덤한 시간 간격으로 적 스폰 코루틴을 시작합니다.
         StartCoroutine(SpawnEnemyRandomly());
         StartCoroutine(SpawnBombEnemyRandomly());
+        StartCoroutine(SpawnFastEnemyRandomly());
     }
 
     IEnumerator SpawnEnemyRandomly()
@@ -63,6 +64,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator SpawnFastEnemyRandomly()
+    {
+        yield return new WaitForSeconds(20f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
+
+        while (true)
+        {
+            float spawnDelay = Random.Range(50 * minMovingSpawnDelay, 10 * maxMovingSpawnDelay);
+            yield return new WaitForSeconds(spawnDelay);
+
+            SpawnFastEnemy(); // 폭탄 적 생성
+        }
+    }
+
     public void SpawnEnemy()
     {
         if (ObjectPool.Instance != null)
@@ -84,6 +98,20 @@ public class GameManager : MonoBehaviour
             // ObjectPool 인스턴스가 유효한 경우에만 호출
             Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, 4f, areaTransform.position.z);
             ObjectPool.Instance.ActivateBombEnemy(spawnPosition);
+        }
+        else
+        {
+            Debug.LogError("ObjectPool instance is not set!");
+        }
+    }
+
+    public void SpawnFastEnemy()
+    {
+        if (ObjectPool.Instance != null)
+        {
+            // ObjectPool 인스턴스가 유효한 경우에만 호출
+            Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, 4f, areaTransform.position.z);
+            ObjectPool.Instance.ActivateFastEnemy(spawnPosition);
         }
         else
         {
