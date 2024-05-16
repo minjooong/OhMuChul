@@ -6,13 +6,16 @@ public class Enemy : MonoBehaviour
     public Transform firePoint; // 발사 위치
     public float fireRate = 2f; // 발사 간격
     public float moveSpeed = 4f; // 이동 속도
-
+    public bool isFastEnemy = false; // FastEnemy 여부
+    private int burstCount = 0; // 현재 몇 번의 burst를 발사했는지 추적
+    private int fireCount = 0; // 현재 burst 내에서 몇 발을 발사했는지 추적
     private float nextFireTime;
 
     private void Update()
     {
         Move(); // 적 이동
-        Fire(); // 적 발사
+        if (!isFastEnemy) Fire(); // 적 발사
+        else FastFire();
     }
 
     void Move()
@@ -20,6 +23,7 @@ public class Enemy : MonoBehaviour
         // 오른쪽에서 왼쪽으로 이동
         transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("EnemyArea"))
@@ -45,6 +49,36 @@ public class Enemy : MonoBehaviour
         {
             Shoot();
             nextFireTime = Time.time + 1f / fireRate; // 다음 발사 시간 설정
+        }
+    }
+    void FastFire()
+    {
+        if (Time.time >= nextFireTime)
+        {
+            Shoot();
+            fireCount++;
+
+            if (fireCount >= 3)
+            {
+                // 3발 발사 후, fireCount를 초기화하고 burstCount를 증가
+                fireCount = 0;
+                burstCount++;
+
+                // 다음 발사 시간 설정: 기본 발사 간격의 5배
+                nextFireTime = Time.time + (1f / fireRate) * 5f;
+            }
+            else
+            {
+                // 다음 발사 시간 설정: 기본 발사 간격
+                nextFireTime = Time.time + 1f / fireRate;
+            }
+
+            // burstCount가 3발씩 끊어 발사하는 한 사이클을 완료했는지 확인
+            if (burstCount >= 1)
+            {
+                // burstCount 초기화 (다음 사이클 시작)
+                burstCount = 0;
+            }
         }
     }
 

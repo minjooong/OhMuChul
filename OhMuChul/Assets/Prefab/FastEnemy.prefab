@@ -100,8 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 728615409140340330, guid: dd4d7e6f17c9e4e79959091ae99c1cc8, type: 3}
   firePoint: {fileID: 6765498552864050134}
-  fireRate: 4
+  fireRate: 8
   moveSpeed: 4
+  isFastEnemy: 1
 --- !u!58 &-7434842951946501007
 CircleCollider2D:
   m_ObjectHideFlags: 0
