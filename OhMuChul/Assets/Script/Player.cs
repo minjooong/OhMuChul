@@ -20,12 +20,12 @@ public class Player : MonoBehaviour
         // 점프
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            //isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
-            if (isGrounded)
-            {
+            //if (isGrounded)
+            //{
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
+            //}
         }
     }
     private void FixedUpdate()
