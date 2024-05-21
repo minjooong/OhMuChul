@@ -96,4 +96,5 @@ public class Enemy : MonoBehaviour
     {
         gameObject.SetActive(false); // Enemy 오브젝트를 비활성화합니다.
     }
+
 }

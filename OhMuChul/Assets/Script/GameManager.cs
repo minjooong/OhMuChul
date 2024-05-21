@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
         if (ObjectPool.Instance != null)
         {
             // ObjectPool 인스턴스가 유효한 경우에만 호출
-            Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, -3.4f, areaTransform.position.z);
+            Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, -3f, areaTransform.position.z);
             ObjectPool.Instance.ActivateWalkEnemy(spawnPosition);
         }
         else
