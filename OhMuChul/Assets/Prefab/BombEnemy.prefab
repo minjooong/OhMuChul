@@ -102,6 +102,7 @@ MonoBehaviour:
   firePoint: {fileID: 6765498552864050134}
   fireRate: 0.7
   moveSpeed: 1
+  isFastEnemy: 0
 --- !u!58 &-7434842951946501007
 CircleCollider2D:
   m_ObjectHideFlags: 0
