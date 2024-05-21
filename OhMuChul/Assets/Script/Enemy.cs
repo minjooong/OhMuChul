@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public float fireRate = 2f; // 발사 간격
     public float moveSpeed = 4f; // 이동 속도
     public bool isFastEnemy = false; // FastEnemy 여부
+    public bool isWalkEnemy = false; // FastEnemy 여부
     private int burstCount = 0; // 현재 몇 번의 burst를 발사했는지 추적
     private int fireCount = 0; // 현재 burst 내에서 몇 발을 발사했는지 추적
     private float nextFireTime;
@@ -14,8 +15,8 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         Move(); // 적 이동
-        if (!isFastEnemy) Fire(); // 적 발사
-        else FastFire();
+        if (isFastEnemy) FastFire();
+        else if (!isWalkEnemy) Fire();
     }
 
     void Move()

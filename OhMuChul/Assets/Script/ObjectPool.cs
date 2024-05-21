@@ -12,10 +12,13 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject fastEnemyPrefab;
     public int fastEnemyPoolSize = 2;
+    public GameObject walkEnemyPrefab;
+    public int walkEnemyPoolSize = 2;
 
     private List<Enemy> enemyPool;
     private List<Enemy> bombEnemyPool;
     private List<Enemy> fastEnemyPool;
+    private List<Enemy> walkEnemyPool;
 
     private void Awake()
     {
@@ -32,6 +35,7 @@ public class ObjectPool : MonoBehaviour
         enemyPool = new List<Enemy>();
         bombEnemyPool = new List<Enemy>();
         fastEnemyPool = new List<Enemy>();
+        walkEnemyPool = new List<Enemy>();
 
         for (int i = 0; i < enemyPoolSize; i++)
         {
@@ -53,6 +57,13 @@ public class ObjectPool : MonoBehaviour
             Enemy fastEnemy = fastEnemyObj.GetComponent<Enemy>();
             fastEnemy.Deactivate();
             fastEnemyPool.Add(fastEnemy);
+        }
+        for (int i = 0; i < walkEnemyPoolSize; i++)
+        {
+            GameObject walkEnemyObj = Instantiate(walkEnemyPrefab, transform);
+            Enemy walkEnemy = walkEnemyObj.GetComponent<Enemy>();
+            walkEnemy.Deactivate();
+            walkEnemyPool.Add(walkEnemy);
         }
     }
 
@@ -90,6 +101,17 @@ public class ObjectPool : MonoBehaviour
         return null;
     }
 
+    public Enemy GetWalkEnemyFromPool()
+    {
+        foreach (Enemy walkEnemy in walkEnemyPool)
+        {
+            if (!walkEnemy.gameObject.activeInHierarchy)
+                return walkEnemy;
+        }
+
+        return null;
+    }
+
     // Enemy를 활성화하여 풀에서 가져오는 메서드
     public void ActivateEnemy(Vector3 position)
     {
@@ -118,6 +140,15 @@ public class ObjectPool : MonoBehaviour
         {
             fastEnemy.transform.position = position;
             fastEnemy.gameObject.SetActive(true);
+        }
+    }
+    public void ActivateWalkEnemy(Vector3 position)
+    {
+        Enemy walkEnemy = GetWalkEnemyFromPool();
+        if (walkEnemy != null)
+        {
+            walkEnemy.transform.position = position;
+            walkEnemy.gameObject.SetActive(true);
         }
     }
 }
