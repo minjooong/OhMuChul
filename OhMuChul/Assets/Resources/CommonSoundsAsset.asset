@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b907e9d54092e41bc8882ee3978683, type: 3}
+  m_Name: CommonSoundsAsset
+  m_EditorClassIdentifier: 
+  _musicTypeToData:
+    m_keys: 0000000001000000
+    m_values:
+    - clip: {fileID: 8300000, guid: 182252ff7ee59db4b95159f9bb1cacd9, type: 3}
+    - clip: {fileID: 8300000, guid: cff528e049ef4aa4c89f98f0ff5d8956, type: 3}
+  _sfxTypeToData:
+    m_keys: 00000000
+    m_values:
+    - clip: {fileID: 8300000, guid: 6d1649287e5c88546b71e81f5dfe894b, type: 3}
