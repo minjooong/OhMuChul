@@ -41,7 +41,7 @@ public class SoundTestScript : MonoBehaviour
     public void PlayMainBGM()
     {
         // CommonSounds 를 활용하여 출력 (메인 배경음 출력)
-        SoundManager.PlayMusic(CommonSounds.GetClip(MusicType.MAIN_BGM));
+        SoundManager.PlayMusic(CommonSounds.GetClip(MusicType.PlayGame1));
     }
 
     public void PlayButtonSFX()

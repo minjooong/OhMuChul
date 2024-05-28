@@ -5,7 +5,8 @@ public enum MusicType
 {
     INTRO_BGM,      //인트로 사운드
     MAIN_BGM,       //메인 사운드
-    Test_BGM        //테스트 사운
+    Test_BGM,   //테스트 사운
+    PlayGame1   //플레이 브금
 }
 
 /// <summary>
