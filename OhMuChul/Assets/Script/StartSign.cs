@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : MonoBehaviour
+public class StartSign : MonoBehaviour
 {
-    // Start is called before the first frame update
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("EnemyArea"))
@@ -27,5 +26,4 @@ public class Tree : MonoBehaviour
     {
         gameObject.SetActive(false); // tree 오브젝트를 비활성화합니다.
     }
-
 }

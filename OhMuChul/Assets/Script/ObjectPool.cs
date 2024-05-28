@@ -9,16 +9,18 @@ public class ObjectPool : MonoBehaviour
     public int enemyPoolSize = 10;
     public GameObject bombEnemyPrefab;
     public int bombEnemyPoolSize = 2;
-
     public GameObject fastEnemyPrefab;
     public int fastEnemyPoolSize = 2;
     public GameObject walkEnemyPrefab;
     public int walkEnemyPoolSize = 2;
+    public GameObject treePrefab;
+    public int treePoolSize = 1;
 
-    private List<Enemy> enemyPool;
-    private List<Enemy> bombEnemyPool;
-    private List<Enemy> fastEnemyPool;
-    private List<Enemy> walkEnemyPool;
+    private List<GameObject> enemyPool;
+    private List<GameObject> bombEnemyPool;
+    private List<GameObject> fastEnemyPool;
+    private List<GameObject> walkEnemyPool;
+    private List<GameObject> treePool;
 
     private void Awake()
     {
@@ -32,123 +34,71 @@ public class ObjectPool : MonoBehaviour
 
     private void InitializePool()
     {
-        enemyPool = new List<Enemy>();
-        bombEnemyPool = new List<Enemy>();
-        fastEnemyPool = new List<Enemy>();
-        walkEnemyPool = new List<Enemy>();
+        enemyPool = new List<GameObject>();
+        bombEnemyPool = new List<GameObject>();
+        fastEnemyPool = new List<GameObject>();
+        walkEnemyPool = new List<GameObject>();
+        treePool = new List<GameObject>();
 
-        for (int i = 0; i < enemyPoolSize; i++)
+        CreatePool(enemyPool, enemyPrefab, enemyPoolSize);
+        CreatePool(bombEnemyPool, bombEnemyPrefab, bombEnemyPoolSize);
+        CreatePool(fastEnemyPool, fastEnemyPrefab, fastEnemyPoolSize);
+        CreatePool(walkEnemyPool, walkEnemyPrefab, walkEnemyPoolSize);
+        CreatePool(treePool, treePrefab, treePoolSize);
+    }
+
+    private void CreatePool(List<GameObject> pool, GameObject prefab, int poolSize)
+    {
+        for (int i = 0; i < poolSize; i++)
         {
-            GameObject enemyObj = Instantiate(enemyPrefab, transform);
-            Enemy enemy = enemyObj.GetComponent<Enemy>();
-            enemy.Deactivate();
-            enemyPool.Add(enemy);
-        }
-        for (int i = 0; i < bombEnemyPoolSize; i++)
-        {
-            GameObject bombEnemyObj = Instantiate(bombEnemyPrefab, transform);
-            Enemy bombEnemy = bombEnemyObj.GetComponent<Enemy>();
-            bombEnemy.Deactivate();
-            bombEnemyPool.Add(bombEnemy);
-        }
-        for (int i = 0; i < fastEnemyPoolSize; i++)
-        {
-            GameObject fastEnemyObj = Instantiate(fastEnemyPrefab, transform);
-            Enemy fastEnemy = fastEnemyObj.GetComponent<Enemy>();
-            fastEnemy.Deactivate();
-            fastEnemyPool.Add(fastEnemy);
-        }
-        for (int i = 0; i < walkEnemyPoolSize; i++)
-        {
-            GameObject walkEnemyObj = Instantiate(walkEnemyPrefab, transform);
-            Enemy walkEnemy = walkEnemyObj.GetComponent<Enemy>();
-            walkEnemy.Deactivate();
-            walkEnemyPool.Add(walkEnemy);
+            GameObject obj = Instantiate(prefab, transform);
+            obj.SetActive(false);
+            pool.Add(obj);
         }
     }
 
-    // 비활성화된 Enemy 오브젝트를 찾아서 반환하는 메서드
-    public Enemy GetEnemyFromPool()
+    private GameObject GetObjectFromPool(List<GameObject> pool)
     {
-        foreach (Enemy enemy in enemyPool)
+        foreach (GameObject obj in pool)
         {
-            if (!enemy.gameObject.activeInHierarchy)
-                return enemy;
+            if (!obj.activeInHierarchy)
+                return obj;
         }
-
         return null;
     }
 
-    // 비활성화된 BombEnemy 오브젝트를 찾아서 반환하는 메서드
-    public Enemy GetBombEnemyFromPool()
+    public void ActivateObject(List<GameObject> pool, Vector3 position)
     {
-        foreach (Enemy bombEnemy in bombEnemyPool)
+        GameObject obj = GetObjectFromPool(pool);
+        if (obj != null)
         {
-            if (!bombEnemy.gameObject.activeInHierarchy)
-                return bombEnemy;
+            obj.transform.position = position;
+            obj.SetActive(true);
         }
-
-        return null;
-    }
-    public Enemy GetFastEnemyFromPool()
-    {
-        foreach (Enemy fastEnemy in fastEnemyPool)
-        {
-            if (!fastEnemy.gameObject.activeInHierarchy)
-                return fastEnemy;
-        }
-
-        return null;
     }
 
-    public Enemy GetWalkEnemyFromPool()
-    {
-        foreach (Enemy walkEnemy in walkEnemyPool)
-        {
-            if (!walkEnemy.gameObject.activeInHierarchy)
-                return walkEnemy;
-        }
-
-        return null;
-    }
-
-    // Enemy를 활성화하여 풀에서 가져오는 메서드
     public void ActivateEnemy(Vector3 position)
     {
-        Enemy enemy = GetEnemyFromPool();
-        if (enemy != null)
-        {
-            enemy.transform.position = position;
-            enemy.gameObject.SetActive(true);
-        }
+        ActivateObject(enemyPool, position);
     }
 
-    // BombEnemy를 활성화하여 풀에서 가져오는 메서드
     public void ActivateBombEnemy(Vector3 position)
     {
-        Enemy bombEnemy = GetBombEnemyFromPool();
-        if (bombEnemy != null)
-        {
-            bombEnemy.transform.position = position;
-            bombEnemy.gameObject.SetActive(true);
-        }
+        ActivateObject(bombEnemyPool, position);
     }
+
     public void ActivateFastEnemy(Vector3 position)
     {
-        Enemy fastEnemy = GetFastEnemyFromPool();
-        if (fastEnemy != null)
-        {
-            fastEnemy.transform.position = position;
-            fastEnemy.gameObject.SetActive(true);
-        }
+        ActivateObject(fastEnemyPool, position);
     }
+
     public void ActivateWalkEnemy(Vector3 position)
     {
-        Enemy walkEnemy = GetWalkEnemyFromPool();
-        if (walkEnemy != null)
-        {
-            walkEnemy.transform.position = position;
-            walkEnemy.gameObject.SetActive(true);
-        }
+        ActivateObject(walkEnemyPool, position);
+    }
+
+    public void ActivateTree(Vector3 position)
+    {
+        ActivateObject(treePool, position);
     }
 }
