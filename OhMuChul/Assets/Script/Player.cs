@@ -8,12 +8,14 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer; // 바닥의 레이어
 
     private Rigidbody2D rb;
+    private Animator animator; // 애니메이터
     public Vector2 moveInput; // Vector2
     private bool isGrounded;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>(); // 애니메이터 초기화
     }
     void Update()
     {
@@ -27,6 +29,11 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
         }
+
+        // 애니메이터의 Speed 파라미터 설정
+        moveInput.x = Input.GetAxisRaw("Horizontal"); // x값만 설정
+        animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
+
     }
     private void FixedUpdate()
     {
