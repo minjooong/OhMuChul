@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: CommonSoundsAsset
   m_EditorClassIdentifier: 
   _musicTypeToData:
-    m_keys: 000000000100000003000000
+    m_keys: 0000000001000000
     m_values:
     - clip: {fileID: 8300000, guid: d4acc443e8e1748d08f770d6f421a31d, type: 3}
-    - clip: {fileID: 8300000, guid: 6af0939ce0534481487faff7d96d4afe, type: 3}
     - clip: {fileID: 8300000, guid: 6af0939ce0534481487faff7d96d4afe, type: 3}
   _sfxTypeToData:
     m_keys: 00000000

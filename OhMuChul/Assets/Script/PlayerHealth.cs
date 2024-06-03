@@ -1,9 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 5; // 최대 체력
     private int currentHealth; // 현재 체력
+
+
+    // 효과음 생성할 위치
+    public Transform _effectTrans;
+    // 움직임 예시 오브젝트 (SKKU)
+    public Transform _player;
 
     private void Start()
     {
@@ -19,27 +26,48 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("health : " + currentHealth);
         if (currentHealth == 4)
         {
-            GetComponent<SpriteRenderer>().color = Color.green;
+            GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.white, 0.66f);
+            GameObject obj = FXManager.SpawnFx(VFXType.DEATH_EFFECT, _effectTrans);
+            obj.transform.position = _player.position;
+            obj.transform.rotation = Quaternion.identity;
         }
         else if (currentHealth == 3)
         {
-            GetComponent<SpriteRenderer>().color = Color.blue;
+            GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.white, 0.33f);
+            GameObject obj = FXManager.SpawnFx(VFXType.DEATH_EFFECT, _effectTrans);
+            obj.transform.position = _player.position;
+            obj.transform.rotation = Quaternion.identity;
         }
         else if (currentHealth == 2)
         {
-            GetComponent<SpriteRenderer>().color = Color.yellow;
+            GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, 0.33f);
+            GameObject obj = FXManager.SpawnFx(VFXType.DEATH_EFFECT, _effectTrans);
+            obj.transform.position = _player.position;
+            obj.transform.rotation = Quaternion.identity;
         }
         else if (currentHealth == 1)
         {
-            GetComponent<SpriteRenderer>().color = Color.red;
+            GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, 0.66f);
+            GameObject obj = FXManager.SpawnFx(VFXType.DEATH_EFFECT, _effectTrans);
+            obj.transform.position = _player.position;
+            obj.transform.rotation = Quaternion.identity;
         }
         // 만약 현재 체력이 0 이하로 떨어졌을 때
         if (currentHealth <= 0)
         {
             // 플레이어를 파괴하거나 게임 오버 등의 처리를 수행할 수 있음
             Debug.Log("Player is dead!");
+            GameObject obj = FXManager.SpawnFx(VFXType.DEATH_EFFECT, _effectTrans);
+            obj.transform.position = _player.position;
+            obj.transform.rotation = Quaternion.identity;
             // 예시로 여기서는 게임 오브젝트를 파괴함
             //Destroy(gameObject);
+            TimerDisplay timerDisplay = FindObjectOfType<TimerDisplay>();
+            if (timerDisplay != null)
+            {
+                timerDisplay.GameOver();
+            }
+            SceneManager.LoadScene("EndScene");
         }
     }
 

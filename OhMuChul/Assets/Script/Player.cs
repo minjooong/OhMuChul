@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     public Transform groundCheck; // 바닥 체크를 위한 오브젝트의 위치
     public LayerMask groundLayer; // 바닥의 레이어
     public Transform speechBubble; // 말풍선 Transform
-    public Transform speechBubble2; // 두 번째 말풍선 Transform
 
     private Rigidbody2D rb;
     private Animator animator; // 애니메이터
@@ -66,11 +65,5 @@ public class Player : MonoBehaviour
             speechBubble.position = bubblePosition;
         }
 
-        // 두 번째 말풍선 위치를 플레이어 머리 옆으로 설정
-        if (speechBubble2 != null)
-        {
-            Vector3 bubble2Position = transform.position + new Vector3(3, 2, 0); // 적절한 위치로 조정
-            speechBubble2.position = bubble2Position;
-        }
     }
 }
