@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 
-public class GameOverDisplay : MonoBehaviour
+public class MyScore : MonoBehaviour
 {
     public Text scoreText; // 마지막 점수를 표시할 Text UI
 
@@ -14,9 +13,5 @@ public class GameOverDisplay : MonoBehaviour
         scoreText.text = "점수: " + lastScore.ToString("F2");
     }
 
-    public void OnReplayButtonClicked()
-    {
-        // PlayScene이라는 이름의 씬을 로드
-        SceneManager.LoadScene("PlayScene");
-    }
+
 }
