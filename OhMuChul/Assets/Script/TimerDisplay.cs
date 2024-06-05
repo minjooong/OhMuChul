@@ -26,7 +26,7 @@ public class TimerDisplay : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
-        PlayerPrefs.SetFloat("LastScore", playTime);
+        PlayerPrefs.SetFloat("CurrentScore", playTime);
         PlayerPrefs.Save();
     }
 }

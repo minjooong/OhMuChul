@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
-    private float startTime;
     private bool gameEnded = false;
+    private TimerDisplay timerDisplay;
 
     void Start()
     {
-        startTime = Time.time;
+        timerDisplay = FindObjectOfType<TimerDisplay>();
     }
 
     void Update()
@@ -25,12 +25,8 @@ public class ScoreManager : MonoBehaviour
     {
         gameEnded = true;
 
-        // 게임이 끝났을 때 경과 시간을 계산합니다.
-        float endTime = Time.time;
-        float elapsedTime = endTime - startTime;
-
-        // 경과 시간을 PlayerPrefs를 통해 저장합니다.
-        PlayerPrefs.SetFloat("CurrentScore", elapsedTime);
+        // TimerDisplay의 GameOver 호출
+        timerDisplay.GameOver();
 
     }
 }
