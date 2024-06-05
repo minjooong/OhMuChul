@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 5; // 최대 체력
-    private int currentHealth; // 현재 체력
+    public int currentHealth; // 현재 체력
 
 
     // 효과음 생성할 위치
