@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer; // 바닥의 레이어
     public Transform speechBubble; // 말풍선 Transform
 
+
     private Rigidbody2D rb;
     private Animator animator; // 애니메이터
     public Vector2 moveInput; // Vector2
@@ -38,7 +39,12 @@ public class Player : MonoBehaviour
         // 말풍선 이미지 위치 업데이트
         UpdateSpeechBubblePosition();
 
+       
+
     }
+
+
+
     private void FixedUpdate()
     {
         // 키보드 입력을 통해 플레이어를 움직임
@@ -66,4 +72,14 @@ public class Player : MonoBehaviour
         }
 
     }
+
+
+
+    public void EnableProtection()
+    {
+        // 플레이어를 보호하는 동작을 여기에 추가
+        // 예를 들어, 보호 상태를 활성화하거나 효과음을 재생할 수 있습니다.
+        // 이 메서드를 호출하는 것은 아이템 스크립트에서 수행됩니다.
+    }
 }
+

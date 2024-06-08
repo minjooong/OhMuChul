@@ -14,6 +14,24 @@ public class GameManager : MonoBehaviour
 
     private Rigidbody2D playerRigidbody;
 
+    public GameObject itemPrefab; // 아이템 프리팹
+    public Transform itemSpawnPoint; // 아이템 등장 위치
+
+
+    private void Start()
+    {
+        // 등장 딜레이 후에 아이템 생성 시작
+        InvokeRepeating("SpawnItem", 0f, 30f);
+    }
+
+
+
+
+    private void SpawnItem()
+    {
+        Instantiate(itemPrefab, itemSpawnPoint.position, Quaternion.identity);
+    }
+
     void Awake()
     {
         instance = this;
@@ -103,6 +121,9 @@ public class GameManager : MonoBehaviour
             SpawnTree(); // 폭탄 적 생성
         }
     }
+
+
+
 
     public void SpawnEnemy()
     {
