@@ -75,11 +75,24 @@ public class Player : MonoBehaviour
 
 
 
-    public void EnableProtection()
+    public void EnableProtection(Item item)
     {
         // 플레이어를 보호하는 동작을 여기에 추가
         // 예를 들어, 보호 상태를 활성화하거나 효과음을 재생할 수 있습니다.
         // 이 메서드를 호출하는 것은 아이템 스크립트에서 수행됩니다.
+        PlayerHealth playerHealthComp = this.GetComponent<PlayerHealth>();
+        if (playerHealthComp == null)
+            return;
+
+        // 보호막이 활성화된 상태라면  ...  
+        if (playerHealthComp.currentItem != null)
+        {
+            playerHealthComp.currentItem.Disappear();
+            playerHealthComp.currentItem = null;
+        }
+
+        playerHealthComp.protectionCount = 1;
+        playerHealthComp.currentItem = item;
     }
 }
 

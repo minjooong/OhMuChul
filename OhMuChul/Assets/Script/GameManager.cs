@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    private readonly float ITEM_SPAWN_TIME = 30f;
     public static GameManager instance;
     public GameObject player;
     private Transform areaTransform; // Area의 위치
@@ -17,19 +18,36 @@ public class GameManager : MonoBehaviour
     public GameObject itemPrefab; // 아이템 프리팹
     public Transform itemSpawnPoint; // 아이템 등장 위치
 
-
+    private float lastUpdateTime = 0f;
     private void Start()
     {
+        lastUpdateTime = ITEM_SPAWN_TIME;
         // 등장 딜레이 후에 아이템 생성 시작
-        InvokeRepeating("SpawnItem", 0f, 30f);
+        //InvokeRepeating("SpawnItem", 15f, 30f);
     }
 
-
+    private void Update()
+    {
+        lastUpdateTime -= Time.deltaTime;
+        if(lastUpdateTime <= 0)
+        {
+            SpawnItem();
+            lastUpdateTime = ITEM_SPAWN_TIME;
+        }
+    }
 
 
     private void SpawnItem()
     {
-        Instantiate(itemPrefab, itemSpawnPoint.position, Quaternion.identity);
+        Debug.Log("Item enter");
+
+        //TODO: 스폰 위치 변경 
+        Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, -1f, areaTransform.position.z);
+        Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
+
+       
+
+        //
     }
 
     void Awake()
