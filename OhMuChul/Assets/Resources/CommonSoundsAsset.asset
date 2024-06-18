@@ -18,6 +18,11 @@ MonoBehaviour:
     - clip: {fileID: 8300000, guid: d4acc443e8e1748d08f770d6f421a31d, type: 3}
     - clip: {fileID: 8300000, guid: 6af0939ce0534481487faff7d96d4afe, type: 3}
   _sfxTypeToData:
-    m_keys: 00000000
+    m_keys: 000000000100000002000000030000000400000005000000
     m_values:
     - clip: {fileID: 8300000, guid: 6d1649287e5c88546b71e81f5dfe894b, type: 3}
+    - clip: {fileID: 8300000, guid: 600ffd2c657194bd6b9d1b7e41613c14, type: 3}
+    - clip: {fileID: 8300000, guid: 82326b3ad42cf44679f921c7c203ae9d, type: 3}
+    - clip: {fileID: 8300000, guid: 59be3e48da08c42878ca67de36cbebf2, type: 3}
+    - clip: {fileID: 8300000, guid: 192d7d37b553e491390105a33a45f04e, type: 3}
+    - clip: {fileID: 8300000, guid: 2fe66c900b00e49e087796192d0f4320, type: 3}

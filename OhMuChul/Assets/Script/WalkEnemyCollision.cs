@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameLogic.Manager;
+
 
 public class WalkEnemyCollision : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class WalkEnemyCollision : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             Debug.Log("Player collision detected");
+            SoundManager.PlaySfx(CommonSounds.GetClip(SfxType.WALKHIT));
 
             // 플레이어에게 데미지를 줌
             PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();

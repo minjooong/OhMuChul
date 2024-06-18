@@ -22,15 +22,7 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.CompareTag("Ground"))
         {
-            // 땅에 충돌하면 총알 삭제
             Destroy(gameObject);
         }
     }
-    // void Update()
-    // {
-    //     if (gameObject.transform.position.y < -5)
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
 }

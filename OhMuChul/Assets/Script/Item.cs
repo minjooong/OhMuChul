@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using GameLogic.Manager;
+
 
 public class Item : MonoBehaviour
 {
@@ -14,6 +14,8 @@ public class Item : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.PlaySfx(CommonSounds.GetClip(SfxType.UMBRELLA));
+
             ProtectPlayer(collision.gameObject);
             this.gameObject.AddComponent<ItemFollow>();
         }

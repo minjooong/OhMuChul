@@ -15,4 +15,7 @@ public enum SfxType
     COMMON_BUTTON,              //공용 버튼 효과음
     TIMEWARP,
     HIT,
+    WALKHIT,
+    UMBRELLA,
+    GAMEOVER,
 }
