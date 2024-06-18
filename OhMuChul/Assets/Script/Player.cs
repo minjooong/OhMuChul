@@ -8,17 +8,19 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer; // 바닥의 레이어
     public Transform speechBubble; // 말풍선 Transform
 
-
     private Rigidbody2D rb;
     private Animator animator; // 애니메이터
     public Vector2 moveInput; // Vector2
     private bool isGrounded;
+
+    private float speedMultiplier = 1f; // 속도 배율
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>(); // 애니메이터 초기화
     }
+
     void Update()
     {
         // 점프
@@ -38,19 +40,14 @@ public class Player : MonoBehaviour
 
         // 말풍선 이미지 위치 업데이트
         UpdateSpeechBubblePosition();
-
-       
-
     }
-
-
 
     private void FixedUpdate()
     {
         // 키보드 입력을 통해 플레이어를 움직임
         moveInput.x = Input.GetAxisRaw("Horizontal"); // x값만 설정
         // FixedUpdate에서 rigidbody에 속도를 적용
-        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput.x * moveSpeed * speedMultiplier, rb.velocity.y);
 
         // 카메라 시야 영역
         float minX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
@@ -70,10 +67,18 @@ public class Player : MonoBehaviour
             Vector3 bubblePosition = transform.position + new Vector3(-2, 1, 0); // 적절한 위치로 조정
             speechBubble.position = bubblePosition;
         }
-
     }
 
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
 
+        // 애니메이터 속도 조절
+        if (animator != null)
+        {
+            animator.speed = speedMultiplier;
+        }
+    }
 
     public void EnableProtection(Item item)
     {
@@ -84,7 +89,7 @@ public class Player : MonoBehaviour
         if (playerHealthComp == null)
             return;
 
-        // 보호막이 활성화된 상태라면  ...  
+        // 보호막이 활성화된 상태라면 ...
         if (playerHealthComp.currentItem != null)
         {
             playerHealthComp.currentItem.Disappear();
@@ -95,4 +100,3 @@ public class Player : MonoBehaviour
         playerHealthComp.currentItem = item;
     }
 }
-

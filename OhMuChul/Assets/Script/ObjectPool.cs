@@ -8,7 +8,7 @@ public class ObjectPool : MonoBehaviour
     public GameObject enemyPrefab;
     public int enemyPoolSize = 10;
     public GameObject bombEnemyPrefab;
-    public int bombEnemyPoolSize = 2;
+    public int bombEnemyPoolSize = 3;
     public GameObject fastEnemyPrefab;
     public int fastEnemyPoolSize = 2;
     public GameObject walkEnemyPrefab;

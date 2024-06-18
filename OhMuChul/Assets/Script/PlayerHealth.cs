@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     // 효과음 생성할 위치
     public Transform _effectTrans;
-    // 움직임 예시 오브젝트 (SKKU)
+    // 움직임 오브젝트
     public Transform _player;
 
     private void Start()
@@ -27,13 +27,13 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         // 보호막이 켜져있는 상태 
-        if(currentItem != null)
+        if (currentItem != null)
         {
             if (protectionCount > 0)
             {
                 protectionCount -= 1;
                 Debug.Log($"보호막 !!!!!! [{protectionCount}]");
-                if(protectionCount <= 0)
+                if (protectionCount <= 0)
                 {
                     currentItem.Disappear();
                     currentItem = null;
@@ -41,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
                 return;
             }
         }
-        
+
 
         // 데미지만큼 체력을 감소시킴
         currentHealth -= damageAmount;

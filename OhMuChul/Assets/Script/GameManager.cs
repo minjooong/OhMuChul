@@ -3,7 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    private readonly float ITEM_SPAWN_TIME = 30f;
+    private readonly float ITEM_SPAWN_TIME = 25f;
+    private readonly float TIMEWARP_SPAWN_TIME = 37f;
     public static GameManager instance;
     public GameObject player;
     private Transform areaTransform; // Area의 위치
@@ -11,28 +12,37 @@ public class GameManager : MonoBehaviour
     public float minStillSpawnDelay = 2f; // 가만히 있을 때 최소 스폰 딜레이
     public float maxStillSpawnDelay = 3f; // 가만히 있을 때 최대 스폰 딜레이
     public float minMovingSpawnDelay = 0.1f; // 움직일 때 최소 스폰 딜레이
-    public float maxMovingSpawnDelay = 1.5f; // 움직일 때 최대 스폰 딜레이
+    public float maxMovingSpawnDelay = 1.3f; // 움직일 때 최대 스폰 딜레이
 
     private Rigidbody2D playerRigidbody;
 
     public GameObject itemPrefab; // 아이템 프리팹
+    public GameObject timeWarpPrefab;
     public Transform itemSpawnPoint; // 아이템 등장 위치
 
-    private float lastUpdateTime = 0f;
+    private float item_lastUpdateTime = 0f;
+    private float timeWarp_lastUpdateTime = 0f;
     private void Start()
     {
-        lastUpdateTime = ITEM_SPAWN_TIME;
+        item_lastUpdateTime = ITEM_SPAWN_TIME;
+        timeWarp_lastUpdateTime = TIMEWARP_SPAWN_TIME;
         // 등장 딜레이 후에 아이템 생성 시작
         //InvokeRepeating("SpawnItem", 15f, 30f);
     }
 
     private void Update()
     {
-        lastUpdateTime -= Time.deltaTime;
-        if(lastUpdateTime <= 0)
+        item_lastUpdateTime -= Time.deltaTime;
+        timeWarp_lastUpdateTime -= Time.deltaTime;
+        if (item_lastUpdateTime <= 0)
         {
             SpawnItem();
-            lastUpdateTime = ITEM_SPAWN_TIME;
+            item_lastUpdateTime = ITEM_SPAWN_TIME;
+        }
+        if (timeWarp_lastUpdateTime <= 0)
+        {
+            SpawnTimeWarp();
+            timeWarp_lastUpdateTime = TIMEWARP_SPAWN_TIME;
         }
     }
 
@@ -44,10 +54,15 @@ public class GameManager : MonoBehaviour
         //TODO: 스폰 위치 변경 
         Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, -1f, areaTransform.position.z);
         Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
+    }
 
-       
+    private void SpawnTimeWarp()
+    {
+        Debug.Log("TimeWarp enter");
 
-        //
+        //TODO: 스폰 위치 변경 
+        Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, -1f, areaTransform.position.z);
+        Instantiate(timeWarpPrefab, spawnPosition, Quaternion.identity);
     }
 
     void Awake()
@@ -85,20 +100,20 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(spawnDelay);
 
-            SpawnEnemy(); // 일반 적 생성
+            SpawnEnemy();
         }
     }
 
     IEnumerator SpawnBombEnemyRandomly()
     {
-        yield return new WaitForSeconds(20f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
+        yield return new WaitForSeconds(15f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
 
         while (true)
         {
             float spawnDelay = Random.Range(50 * minMovingSpawnDelay, 10 * maxMovingSpawnDelay);
             yield return new WaitForSeconds(spawnDelay);
 
-            SpawnBombEnemy(); // 폭탄 적 생성
+            SpawnBombEnemy();
         }
     }
 
@@ -111,20 +126,20 @@ public class GameManager : MonoBehaviour
             float spawnDelay = Random.Range(50 * minMovingSpawnDelay, 10 * maxMovingSpawnDelay);
             yield return new WaitForSeconds(spawnDelay);
 
-            SpawnFastEnemy(); // 폭탄 적 생성
+            SpawnFastEnemy();
         }
     }
 
     IEnumerator SpawnWalkEnemyRandomly()
     {
-        yield return new WaitForSeconds(20f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
+        yield return new WaitForSeconds(25f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
 
         while (true)
         {
             float spawnDelay = Random.Range(50 * minMovingSpawnDelay, 10 * maxMovingSpawnDelay);
             yield return new WaitForSeconds(spawnDelay);
 
-            SpawnWalkEnemy(); // 폭탄 적 생성
+            SpawnWalkEnemy();
         }
     }
     IEnumerator SpawnTreeRandomly()
