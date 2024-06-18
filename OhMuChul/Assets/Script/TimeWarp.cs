@@ -20,6 +20,7 @@ public class TimeWarp : MonoBehaviour
         {
             SoundManager.PlaySfx(CommonSounds.GetClip(SfxType.TIMEWARP));
             SoundManager.GlobalMusicVolume = 0.1f;
+            StartCoroutine(GameManager.TemporaryIncreaseSpawnRate(3f));
             StartCoroutine(TimeSlow(collision.gameObject));
             this.gameObject.AddComponent<ItemFollow>();
         }

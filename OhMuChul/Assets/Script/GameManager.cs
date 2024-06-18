@@ -5,8 +5,8 @@ using GameLogic.Manager;
 
 public class GameManager : MonoBehaviour
 {
-    private readonly float ITEM_SPAWN_TIME = 25f;
-    private readonly float TIMEWARP_SPAWN_TIME = 10f;//37f;
+    private readonly float ITEM_SPAWN_TIME = 20f;
+    private readonly float TIMEWARP_SPAWN_TIME = 29f;
     public static GameManager instance;
     public GameObject player;
     private Transform areaTransform; // Area의 위치
@@ -68,32 +68,30 @@ public class GameManager : MonoBehaviour
         Instantiate(timeWarpPrefab, spawnPosition, Quaternion.identity);
 
         // Increase enemy spawn rate temporarily
-        StartCoroutine(TemporaryIncreaseSpawnRate(6f)); // 6 seconds for example
+        //StartCoroutine(TemporaryIncreaseSpawnRate(6f)); // 6 seconds for example
     }
 
-    private IEnumerator TemporaryIncreaseSpawnRate(float duration)
+    public static IEnumerator TemporaryIncreaseSpawnRate(float duration)
     {
-
-        float originalMinStillSpawnDelay = minStillSpawnDelay;
-        float originalMaxStillSpawnDelay = maxStillSpawnDelay;
-        float originalMinMovingSpawnDelay = minMovingSpawnDelay;
-        float originalMaxMovingSpawnDelay = maxMovingSpawnDelay;
-        yield return new WaitForSeconds(0.8f);
+        float originalMinStillSpawnDelay = instance.minStillSpawnDelay;
+        float originalMaxStillSpawnDelay = instance.maxStillSpawnDelay;
+        float originalMinMovingSpawnDelay = instance.minMovingSpawnDelay;
+        float originalMaxMovingSpawnDelay = instance.maxMovingSpawnDelay;
 
         // Set faster spawn delays
-        minStillSpawnDelay = 0.5f;
-        maxStillSpawnDelay = 0.7f;
-        minMovingSpawnDelay = 0.05f;
-        maxMovingSpawnDelay = 0.09f;
+        instance.minStillSpawnDelay = 0.5f;
+        instance.maxStillSpawnDelay = 0.7f;
+        instance.minMovingSpawnDelay = 0.06f;
+        instance.maxMovingSpawnDelay = 0.2f;
 
         // Wait for the duration
         yield return new WaitForSeconds(duration);
 
         // Restore original spawn delays
-        minStillSpawnDelay = originalMinStillSpawnDelay;
-        maxStillSpawnDelay = originalMaxStillSpawnDelay;
-        minMovingSpawnDelay = originalMinMovingSpawnDelay;
-        maxMovingSpawnDelay = originalMaxMovingSpawnDelay;
+        instance.minStillSpawnDelay = originalMinStillSpawnDelay;
+        instance.maxStillSpawnDelay = originalMaxStillSpawnDelay;
+        instance.minMovingSpawnDelay = originalMinMovingSpawnDelay;
+        instance.maxMovingSpawnDelay = originalMaxMovingSpawnDelay;
     }
 
     void Awake()
@@ -137,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnBombEnemyRandomly()
     {
-        yield return new WaitForSeconds(15f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
+        yield return new WaitForSeconds(10f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
 
         while (true)
         {
@@ -150,7 +148,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnFastEnemyRandomly()
     {
-        yield return new WaitForSeconds(20f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
+        yield return new WaitForSeconds(15f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
 
         while (true)
         {
@@ -163,7 +161,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnWalkEnemyRandomly()
     {
-        yield return new WaitForSeconds(25f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
+        yield return new WaitForSeconds(20f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
 
         while (true)
         {
@@ -176,11 +174,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnTreeRandomly()
     {
-        yield return new WaitForSeconds(30f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
+        yield return new WaitForSeconds(15f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
 
         while (true)
         {
-            float spawnDelay = Random.Range(200 * minMovingSpawnDelay, 20 * maxMovingSpawnDelay);
+            float spawnDelay = Random.Range(100 * minMovingSpawnDelay, 16 * maxMovingSpawnDelay);
             yield return new WaitForSeconds(spawnDelay);
 
             SpawnTree(); // 폭탄 적 생성
