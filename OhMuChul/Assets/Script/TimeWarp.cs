@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameLogic.Manager;
 
 public class TimeWarp : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class TimeWarp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.PlaySfx(CommonSounds.GetClip(SfxType.TIMEWARP));
+            SoundManager.GlobalMusicVolume = 0.1f;
             StartCoroutine(TimeSlow(collision.gameObject));
             this.gameObject.AddComponent<ItemFollow>();
         }
@@ -48,6 +51,8 @@ public class TimeWarp : MonoBehaviour
             playerScript.SetSpeedMultiplier(1f);
         }
         Debug.Log("time slow end");
+        SoundManager.GlobalMusicVolume = 1f;
+
         Destroy(this.gameObject);
     }
 }
