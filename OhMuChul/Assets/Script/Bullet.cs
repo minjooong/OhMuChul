@@ -1,4 +1,6 @@
 using UnityEngine;
+using GameLogic.Manager;
+
 
 public class Bullet : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class Bullet : MonoBehaviour
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
+                SoundManager.PlaySfx(CommonSounds.GetClip(SfxType.HIT));
+
                 playerHealth.TakeDamage(damageAmount);
             }
         }
