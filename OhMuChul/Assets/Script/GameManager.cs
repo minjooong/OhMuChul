@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using GameLogic.Manager;
+
 
 public class GameManager : MonoBehaviour
 {
     private readonly float ITEM_SPAWN_TIME = 25f;
-    private readonly float TIMEWARP_SPAWN_TIME = 37f;
+    private readonly float TIMEWARP_SPAWN_TIME = 10f;//37f;
     public static GameManager instance;
     public GameObject player;
     private Transform areaTransform; // Area의 위치
@@ -22,12 +24,14 @@ public class GameManager : MonoBehaviour
 
     private float item_lastUpdateTime = 0f;
     private float timeWarp_lastUpdateTime = 0f;
+
     private void Start()
     {
         item_lastUpdateTime = ITEM_SPAWN_TIME;
         timeWarp_lastUpdateTime = TIMEWARP_SPAWN_TIME;
-        // 등장 딜레이 후에 아이템 생성 시작
-        //InvokeRepeating("SpawnItem", 15f, 30f);
+
+        Time.timeScale = 1f;
+        SoundManager.GlobalMusicVolume = 1f;
     }
 
     private void Update()
@@ -46,7 +50,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void SpawnItem()
     {
         Debug.Log("Item enter");
@@ -63,6 +66,34 @@ public class GameManager : MonoBehaviour
         //TODO: 스폰 위치 변경 
         Vector3 spawnPosition = new Vector3(areaTransform.position.x + 15, -1f, areaTransform.position.z);
         Instantiate(timeWarpPrefab, spawnPosition, Quaternion.identity);
+
+        // Increase enemy spawn rate temporarily
+        StartCoroutine(TemporaryIncreaseSpawnRate(6f)); // 6 seconds for example
+    }
+
+    private IEnumerator TemporaryIncreaseSpawnRate(float duration)
+    {
+
+        float originalMinStillSpawnDelay = minStillSpawnDelay;
+        float originalMaxStillSpawnDelay = maxStillSpawnDelay;
+        float originalMinMovingSpawnDelay = minMovingSpawnDelay;
+        float originalMaxMovingSpawnDelay = maxMovingSpawnDelay;
+        yield return new WaitForSeconds(0.8f);
+
+        // Set faster spawn delays
+        minStillSpawnDelay = 0.5f;
+        maxStillSpawnDelay = 0.7f;
+        minMovingSpawnDelay = 0.05f;
+        maxMovingSpawnDelay = 0.09f;
+
+        // Wait for the duration
+        yield return new WaitForSeconds(duration);
+
+        // Restore original spawn delays
+        minStillSpawnDelay = originalMinStillSpawnDelay;
+        maxStillSpawnDelay = originalMaxStillSpawnDelay;
+        minMovingSpawnDelay = originalMinMovingSpawnDelay;
+        maxMovingSpawnDelay = originalMaxMovingSpawnDelay;
     }
 
     void Awake()
@@ -142,6 +173,7 @@ public class GameManager : MonoBehaviour
             SpawnWalkEnemy();
         }
     }
+
     IEnumerator SpawnTreeRandomly()
     {
         yield return new WaitForSeconds(30f); // 게임 플레이 20초 후에 폭탄 적 생성 시작
@@ -154,9 +186,6 @@ public class GameManager : MonoBehaviour
             SpawnTree(); // 폭탄 적 생성
         }
     }
-
-
-
 
     public void SpawnEnemy()
     {
@@ -213,6 +242,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("ObjectPool instance is not set!");
         }
     }
+
     public void SpawnTree()
     {
         if (ObjectPool.Instance != null)

@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class TimeWarp : MonoBehaviour
 {
     public Image vignetteImage; // 비네팅 효과를 적용할 UI 이미지
+
     private void Start()
     {
         // 시작할 때 아이템을 활성화
         gameObject.SetActive(true);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,6 +34,7 @@ public class TimeWarp : MonoBehaviour
         {
             StartCoroutine(FadeInVignette());
         }
+
         // 전체 시간을 0.5배속으로 조절
         Time.timeScale = 0.5f;
         float originalFixedDeltaTime = Time.fixedDeltaTime;
@@ -44,7 +47,7 @@ public class TimeWarp : MonoBehaviour
             playerScript.SetSpeedMultiplier(2f);
         }
 
-        // 5초간 유지
+        // 8초간 유지
         yield return new WaitForSecondsRealtime(8f);
 
         // 비네팅 효과를 제거
@@ -66,7 +69,7 @@ public class TimeWarp : MonoBehaviour
 
         SoundManager.GlobalMusicVolume = 1f;
 
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     private IEnumerator FadeInVignette()
@@ -87,15 +90,20 @@ public class TimeWarp : MonoBehaviour
 
     private IEnumerator FadeOutVignette()
     {
-
+        float duration = 1f;
+        float elapsed = 0f;
         Color color = vignetteImage.color;
-
+        while (elapsed < duration)
+        {
+            color.a = Mathf.Lerp(0.5f, 0f, elapsed / duration);
+            vignetteImage.color = color;
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
         color.a = 0f;
         vignetteImage.color = color;
 
-        yield return null;
-
-        color.a = 0f;
-        vignetteImage.color = color;
+        // 코루틴을 즉시 종료하여 비네팅 효과를 즉시 사라지게 함
+        yield break;
     }
 }
