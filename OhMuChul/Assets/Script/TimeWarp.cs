@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
 using GameLogic.Manager;
+using UnityEngine.UI;
 
 public class TimeWarp : MonoBehaviour
 {
+    public Image vignetteImage; // 비네팅 효과를 적용할 UI 이미지
     private void Start()
     {
         // 시작할 때 아이템을 활성화
@@ -25,6 +27,11 @@ public class TimeWarp : MonoBehaviour
     {
         Debug.Log("timewarp");
 
+        // 비네팅 효과를 적용
+        if (vignetteImage != null)
+        {
+            StartCoroutine(FadeInVignette());
+        }
         // 전체 시간을 0.5배속으로 조절
         Time.timeScale = 0.5f;
         float originalFixedDeltaTime = Time.fixedDeltaTime;
@@ -40,6 +47,12 @@ public class TimeWarp : MonoBehaviour
         // 5초간 유지
         yield return new WaitForSecondsRealtime(8f);
 
+        // 비네팅 효과를 제거
+        if (vignetteImage != null)
+        {
+            StartCoroutine(FadeOutVignette());
+        }
+
         // 전체 시간을 원래대로 복귀
         Time.timeScale = 1f;
         Time.fixedDeltaTime = originalFixedDeltaTime;
@@ -50,8 +63,39 @@ public class TimeWarp : MonoBehaviour
             playerScript.SetSpeedMultiplier(1f);
         }
         Debug.Log("time slow end");
+
         SoundManager.GlobalMusicVolume = 1f;
 
         Destroy(this.gameObject);
+    }
+
+    private IEnumerator FadeInVignette()
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+        Color color = vignetteImage.color;
+        while (elapsed < duration)
+        {
+            color.a = Mathf.Lerp(0f, 0.5f, elapsed / duration);
+            vignetteImage.color = color;
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        color.a = 0.5f;
+        vignetteImage.color = color;
+    }
+
+    private IEnumerator FadeOutVignette()
+    {
+
+        Color color = vignetteImage.color;
+
+        color.a = 0f;
+        vignetteImage.color = color;
+
+        yield return null;
+
+        color.a = 0f;
+        vignetteImage.color = color;
     }
 }
